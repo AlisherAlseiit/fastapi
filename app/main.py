@@ -11,7 +11,7 @@ from .config import settings
 
 app = FastAPI()
 
-# CORSP section
+# CORSP section before deployment
 origins = ["*"]
 
 app.add_middleware(
