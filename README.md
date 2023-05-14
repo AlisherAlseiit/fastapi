@@ -1,9 +1,17 @@
-py -3 -m venv venv  <--- creates virtual environment for the project
+link for youtube -> https://www.youtube.com/watch?v=0sOvCWFmrtA&list=PLzcSkN75M0CKWlTLVF6zrwaAWVpN0JCC7&index=1&t=65990s&ab_channel=freeCodeCamp.org
+
+
+py -3 -m venv venv  <--- creates virtual environment for the project for windows
+
+python3 -m venv venv <---- creates virtual environment for the project for mac
 
 don't forget to select correct python select interpreter 
 
-venv\Scripts\activate.bat <------ to use virtual environment in terminal
+venv\Scripts\activate.bat <------ to use virtual environment in terminal for windows
 
+source venv/bin/activate <------ to use virtual environment in terminal for mac
+
+venv\Scripts\deactivate.bat
 
 pip install fastapi[all] <----- to install fastapi
 
@@ -78,10 +86,11 @@ steps:
 2. heroku create appname
 3. git push heroku main 
 4. create Procfile in main directory
-5. web: uvicorn app.main:app --host=0.0.0.0 --port=${PORT:-5000} <-- at to Procfile
+5. web: uvicorn app.main:app --host=0.0.0.0 --port=${PORT:-5000} <-- add to Procfile
 6. 1. git add . 2. git commit -m "zdaw" 3. git push origin main 4. git push heroku main 
 7. heroku addons:create heroku-postgresql:mini
-8. check in dashboard -> app that we created -> Settings -> Config vars -> add config vars
+8. check in dashboard -> app that we created -> Settings -> Config vars -> add config vars -> and add config vars
+you can find heroku database information inside click addons-name in website -> Settings
 9. heroku ps:restart
 10. heroku run "alembic upgrade head"  <-- to upgrade almebic in our prod postgresql server
 11. heroku ps:restart
@@ -96,7 +105,22 @@ steps:
 1. -git add  -git commit  -git push origin main  -git push heroku main
 2. heroku run "alembic commands"
 
+if you want to deploy one porject to two different heroku accounts:
+1. heroku login
+2. heroku git:remote -a your-second-heroku-app-name
+3. git push heroku main
 
+
+if you use selenium and want to work with heroku:
+1. heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-google-chrome.git
+2. in code:
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+options = Options()
+options.binary_location = '/app/.apt/usr/bin/google-chrome-stable'
+driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), chrome_options=options)
+3. git add commit push, git push heroku main
+4. heroku restart
 
 CI/CD section
 -----------------------------------------------------------------------
